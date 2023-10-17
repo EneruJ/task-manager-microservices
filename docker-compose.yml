@@ -19,7 +19,7 @@ services:
       
   notification-service:
     build:
-      context: ./notification-service
+      context: ./notifications-service
       dockerfile: Dockerfile
     ports:
       - "6000:6000"

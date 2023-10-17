@@ -1,21 +1,17 @@
-# Utilisez une image Node.js officielle pour l'étape de construction
-FROM node:14 AS build
+# Utilisez une image Node.js officielle
+FROM node:14
 
 WORKDIR /usr/src/app
 
+# Copiez les fichiers package.json et package-lock.json pour installer les dépendances
 COPY package*.json ./
 RUN npm install
 
+# Copiez le reste des fichiers de l'application
 COPY . .
-RUN npm run build
 
-# Utilisez une image Nginx pour servir le frontend
-FROM nginx:alpine
+# Exposez le port que votre application Express utilise (dans notre exemple précédent, c'était 8080)
+EXPOSE 8080
 
-# Copiez les fichiers build depuis l'étape de build
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
-
-# Exposez le port 80 pour Nginx
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Commande pour démarrer votre service de tâches
+CMD ["node", "server.js"]

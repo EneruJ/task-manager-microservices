@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api');
 
 let channel = null;
 
-amqp.connect('amqp://localhost', (error0, connection) => {
+amqp.connect('amqp://rabbitmq', (error0, connection) => {
     if (error0) {
         throw error0;
     }
