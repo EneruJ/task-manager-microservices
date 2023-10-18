@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8; /* Couleur d'arrière-plan de votre choix */
+  }
+  
+  .content {
+    background-color: #ffffff; /* Couleur du bloc au centre */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Optionnel : ombre pour un effet "élevé" */
+    width: 80%;
+    max-width: 600px; /* Vous pouvez ajuster cette valeur selon vos préférences */
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }
+  

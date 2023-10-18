@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../style/style.css';
 
 function TasksPage() {
   const [tasks, setTasks] = useState([]);
@@ -6,7 +7,7 @@ function TasksPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/tasks')
+    fetch('http://task-service/api/tasks')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
@@ -23,28 +24,24 @@ function TasksPage() {
       });
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <div>
-      <h1>Your Tasks</h1>
-      {tasks.length === 0 ? (
-        <p>No tasks found.</p>
-      ) : (
-        <ul>
-          {tasks.map(task => (
-            <li key={task._id}>
-              {task.title}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="container">
+      <div className="content">
+        <h1>Liste des tâches</h1>
+        {loading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
+        {tasks.length === 0 ? (
+          <p>Aucune tache disponible.</p>
+        ) : (
+          <ul>
+            {tasks.map(task => (
+              <li key={task._id}>
+                {task.title}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

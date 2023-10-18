@@ -1,11 +1,15 @@
 import React from 'react';
+import '../style/style.css';
 
 function HomePage() {
   return (
-    <div>
-      <h1>Welcome to the Task Manager</h1>
+    <div className="container">
+      <div className="content">
+        <h1>Task Manager</h1>
+      </div>
     </div>
   );
 }
+
 
 export default HomePage;
