@@ -6,8 +6,7 @@ function TasksPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Supposons que votre endpoint pour récupérer les tâches soit "/api/tasks"
-    fetch('/api/tasks')
+    fetch('http://localhost:5000/api/tasks')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
@@ -42,7 +41,6 @@ function TasksPage() {
           {tasks.map(task => (
             <li key={task._id}>
               {task.title}
-              {/* Vous pouvez également afficher d'autres détails sur la tâche ici, comme sa description ou sa date d'échéance. */}
             </li>
           ))}
         </ul>

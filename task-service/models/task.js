@@ -6,11 +6,12 @@ const TaskSchema = new mongoose.Schema({
     required: true
   },
   description: {
-    type: String
+    type: String,
+    required: true
   },
-  date: {
-    type: Date,
-    default: Date.now
+  completed: {
+    type: Boolean,
+    default: false
   }
 });
 

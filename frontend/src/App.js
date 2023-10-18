@@ -7,10 +7,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/tasks" component={TasksPage} />
-        {/* Vous pouvez ajouter d'autres routes ici si nécessaire */}
-      </Routes>
+    <Route path="/" element={<HomePage />} />
+    <Route path="/tasks" element={<TasksPage />} />
+</Routes>
     </Router>
   );
 }

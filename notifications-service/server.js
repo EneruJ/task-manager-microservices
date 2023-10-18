@@ -14,7 +14,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-app.post('/send-notification', (req, res) => {
+app.post('/send', (req, res) => {
     const { queue, data } = req.body;
     sendToQueue(queue, data);
     res.send('Notification sent.');
