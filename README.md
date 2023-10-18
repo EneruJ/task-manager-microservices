@@ -29,4 +29,5 @@ Docker: Pour conteneuriser nos services et garantir un environnement de déploie
 
 Prometheus & Grafana: Pour le monitoring et la visualisation des performances de nos services.
 
-![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/fc9e2711-b35f-4546-8892-68e97916a513)
+![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/e4405e8d-ef07-44fb-adaa-8197775b9856)
+
