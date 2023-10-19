@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../style/style.css';
 
+// Page des tâches de l'application
 function TasksPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Récupérer les tâches depuis le service des tâches
   useEffect(() => {
     fetch('http://task-service/api/tasks')
       .then(response => {
@@ -24,6 +26,7 @@ function TasksPage() {
       });
   }, []);
 
+  // Afficher les tâches
   return (
     <div className="container">
       <div className="content">

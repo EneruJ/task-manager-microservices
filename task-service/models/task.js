@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Définition du schéma d'une tâche
 const TaskSchema = new mongoose.Schema({
   title: {
     type: String,

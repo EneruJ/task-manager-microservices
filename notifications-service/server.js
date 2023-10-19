@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 const app = express();
 app.use(bodyParser.json());
 
+// Initialisation de swagger-jsdoc
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -40,6 +41,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// Définition des routes de l'application
 app.get('/', (req, res) => {
     res.send('Notification Service is Running');
 });

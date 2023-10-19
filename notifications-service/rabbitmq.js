@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api');
 
 let channel = null;
 let retries = 5;
-
+// Connexion à RabbitMQ
 function connectToRabbitMQ() {
   amqp.connect('amqp://rabbitmq', (error0, connection) => {
     if (error0) {
@@ -28,6 +28,7 @@ function connectToRabbitMQ() {
 
 connectToRabbitMQ();
 
+// Envoi d'un message à une file d'attente
 function sendToQueue(queue, data) {
     if (channel) {
         channel.assertQueue(queue, { durable: false });

@@ -13,6 +13,7 @@ app.use('/api/tasks', tasksRouter);
 
 const swaggerJsDoc = require('swagger-jsdoc');
 
+// Initialisation de swagger-jsdoc
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -53,6 +54,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// Connexion à la base de données MongoDB
 mongoose.connect('mongodb://culinarydb:YA81MlahfM8LsDLqnxcy1fNch0gS9ikYrMoFNurDfBSjStf3fC8JJ5BZ7k9OWBZpl750lSoNUnC4ACDb2lMf4g==@culinarydb.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@culinarydb@', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -64,6 +66,7 @@ mongoose.connect('mongodb://culinarydb:YA81MlahfM8LsDLqnxcy1fNch0gS9ikYrMoFNurDf
   console.error('Error connecting to MongoDB:', err);
 });
 
+// Définition des routes de l'application
 app.get('/', (req, res) => {
   res.send('Task Service is Running');
 });

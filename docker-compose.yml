@@ -2,35 +2,35 @@ version: '3.8'
 
 services:
   task-service:
-    build:
-      context: ./task-service
-      dockerfile: Dockerfile
+    image: wmezz/task-service:v1
     ports:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://culinarydb:YA81MlahfM8LsDLqnxcy1fNch0gS9ikYrMoFNurDfBSjStf3fC8JJ5BZ7k9OWBZpl750lSoNUnC4ACDb2lMf4g==@culinarydb.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@culinarydb@
+    networks:
+      - taskmanagernetwork
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: wmezz/frontend:v1
     ports:
       - "80:80"
+    networks:
+      - taskmanagernetwork
       
   notification-service:
-    build:
-      context: ./notifications-service
-      dockerfile: Dockerfile
+    image: wmezz/notification-service:v1
     ports:
       - "6000:6000"
-    depends_on:
-      - rabbitmq
+    networks:
+      - taskmanagernetwork
 
   rabbitmq:
     image: "rabbitmq"
     ports:
       - "15672:15672"
       - "5672:5672"
+    networks:
+      - taskmanagernetwork
 
   prometheus:
     image: prom/prometheus:latest
@@ -38,10 +38,16 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - taskmanagernetwork
   
   grafana:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
-    depends_on:
-      - prometheus
+    networks:
+      - taskmanagernetwork
+
+networks:
+  taskmanagernetwork:
+    external: true
