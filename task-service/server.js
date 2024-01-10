@@ -3,12 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Client } = require('@elastic/elasticsearch');
 const swaggerUi = require('swagger-ui-express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 const tasksRouter = require('./routes/tasks');
-app.use('/api/tasks', tasksRouter);
+const loginRoute = require('./routes/login');
 
 const client = new Client({ node: 'http://elasticsearch:9200' });
 

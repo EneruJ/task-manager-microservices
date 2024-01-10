@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   task-service:
-    image: wmezz/task-service:v3
+    image: wmezz/task-service:v4
     ports:
       - "5000:5000"
     depends_on:
@@ -97,7 +97,31 @@ services:
       - elasticsearch
     networks:
       - taskmanagernetwork
-
+  
+  test-runner:
+    image: appropriate/curl
+    depends_on:
+      task-service:
+        condition: service_started
+      frontend:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+      logstash:
+        condition: service_started
+      kibana:
+        condition: service_started
+      metricbeat:
+        condition: service_started
+    volumes:
+      - ./scripts:/scripts
+    command: >
+      /bin/bash -c "
+      sleep 60;
+      /scripts/check_containers.sh &&
+      /scripts/check_elk.sh
+      "
+  
 
 networks:
   taskmanagernetwork:
