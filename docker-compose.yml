@@ -2,18 +2,19 @@ version: '3.8'
 
 services:
   task-service:
-    image: wmezz/task-service:v1
+    image: wmezz/task-service:v3
     ports:
       - "5000:5000"
-    environment:
-      - MONGO_URI=mongodb://culinarydb:YA81MlahfM8LsDLqnxcy1fNch0gS9ikYrMoFNurDfBSjStf3fC8JJ5BZ7k9OWBZpl750lSoNUnC4ACDb2lMf4g==@culinarydb.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@culinarydb@
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
     networks:
       - taskmanagernetwork
 
   frontend:
-    image: wmezz/frontend:v1
+    image: wmezz/frontend:v2
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - taskmanagernetwork
       
@@ -48,6 +49,55 @@ services:
     networks:
       - taskmanagernetwork
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - taskmanagernetwork
+    
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.9.3
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    depends_on:
+      - elasticsearch
+    networks:
+      - taskmanagernetwork
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.3
+    ports:
+        - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - taskmanagernetwork
+
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.9.3
+    user: root
+    volumes:
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /:/hostfs:ro
+      - ./metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+    command: ["-system.hostfs=/hostfs"]
+    depends_on:
+      - elasticsearch
+    networks:
+      - taskmanagernetwork
+
+
 networks:
   taskmanagernetwork:
-    external: true
