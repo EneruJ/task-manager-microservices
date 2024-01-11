@@ -99,6 +99,10 @@ Tableau de bord Kibana : [Kibana](http://localhost:5601/)
 
 ![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/647c6139-fd38-4ee3-a104-ec3bcf7bf6d6)
 
+## Dashboard Kibana
+
+![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/4c833c38-711e-4b7a-865d-484ade8531c5)
+
 ## Build et Exécution du Projet
 
 - Cloner le projet git : git clone https://github.com/EneruJ/task-manager-microservices.git
