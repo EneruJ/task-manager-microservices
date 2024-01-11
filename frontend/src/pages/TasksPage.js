@@ -66,7 +66,7 @@ function TasksPage() {
           <ul>
             {tasks.map(task => (
               <li key={task._id} style={{ marginBottom: '20px' }}>
-                <h2>{task.title} {task.completed ? '✅' : '❌'}</h2>
+                <h2>{task.title}</h2>
                 <p style={{ fontSize: '14px' }}>{task.description}</p>
               </li>
             ))}

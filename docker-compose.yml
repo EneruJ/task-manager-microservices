@@ -70,6 +70,7 @@ services:
       - "5001:5000"
     volumes:
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./tasks.csv:/usr/share/logstash/tasks.csv
     depends_on:
       - elasticsearch
     networks:
@@ -99,7 +100,7 @@ services:
       - taskmanagernetwork
   
   test-runner:
-    image: appropriate/curl
+    image: debian
     depends_on:
       task-service:
         condition: service_started
@@ -117,11 +118,21 @@ services:
       - ./scripts:/scripts
     command: >
       /bin/bash -c "
-      sleep 60;
-      /scripts/check_containers.sh &&
+      apt-get update &&
+      apt-get install -y curl netcat-openbsd &&
+      sleep 30;
       /scripts/check_elk.sh
       "
+    networks:
+      - taskmanagernetwork
+    
+  curator:
+    image: bobrik/curator:5.8.1
+    volumes:
+      - ./actions.yml:/actions.yml
+    command: ["curator", "/actions.yml"]
+    depends_on:
+      - elasticsearch
   
-
 networks:
   taskmanagernetwork:

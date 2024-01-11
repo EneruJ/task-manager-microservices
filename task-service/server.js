@@ -3,16 +3,19 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Client } = require('@elastic/elasticsearch');
 const swaggerUi = require('swagger-ui-express');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 const tasksRouter = require('./routes/tasks');
-const loginRoute = require('./routes/login');
+app.use('/api/tasks', tasksRouter);
 
 const client = new Client({ node: 'http://elasticsearch:9200' });
+
+const users = {
+  admin: { password: "adminpassword" }
+};
 
 const swaggerJsDoc = require('swagger-jsdoc');
 
@@ -59,6 +62,41 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/', (req, res) => {
   res.send('Task Service is Running');
+});
+
+// Endpoint pour la connexion
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users[username];
+
+  if (user && user.password === password) {
+    const token = jwt.sign({ username }, 'votre-secret-jwt', { expiresIn: '1h' });
+    res.json({ token });
+  } else {
+    res.status(401).send('Les informations d\'identification sont incorrectes');
+  }
+});
+
+// Middleware pour vérifier le token JWT
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(403).send('Un token est requis pour l\'authentification');
+  }
+
+  try {
+    const decoded = jwt.verify(token, 'votre-secret-jwt');
+    req.user = decoded;
+  } catch (err) {
+    return res.status(401).send('Token invalide');
+  }
+  return next();
+};
+
+// Exemple d'une route protégée
+app.get('/protected', verifyToken, (req, res) => {
+  res.send(`Bonjour, ${req.user.username}. Ceci est une route protégée.`);
 });
 
 const PORT = 5000;

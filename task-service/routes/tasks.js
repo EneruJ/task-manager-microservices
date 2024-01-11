@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const client = require('../config/elasticsearchClient');
-const authenticateToken = require('./authenticateToken');
 
 /**
  * @swagger
@@ -33,7 +32,7 @@ const authenticateToken = require('./authenticateToken');
  *                     description: Indique si la tâche est terminée
  */
 
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const { body } = await client.search({
       index: 'tasks',
