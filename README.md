@@ -56,25 +56,48 @@ Monitoring en temps réel : Nous avons configuré Prometheus et Grafana pour sur
 
 Système de gestion de files d'attente : Nous utilisons RabbitMQ comme système de messagerie pour la communication asynchrone entre nos services.
 
+Elasticsearch : Pour améliorer la recherche et l'analyse des données, nous avons intégré Elasticsearch dans notre architecture. Ce moteur de recherche distribué nous permet d'effectuer des recherches complexes et rapides sur les données des tâches, offrant ainsi une expérience utilisateur plus riche et plus réactive.
+
+Kibana : En complément d'Elasticsearch, nous utilisons Kibana pour la visualisation des données et la surveillance en temps réel. Kibana nous permet de créer des tableaux de bord interactifs pour analyser les données de tâches et de surveiller les performances de nos services. Ces tableaux de bord sont accessibles via des liens publics et offrent une visibilité en temps réel sur l'état de notre application.
+
+Logstash : Nous avons intégré Logstash pour collecter, transformer et transférer les logs de nos différents services. Cette intégration nous permet d'agréger les logs dans un format structuré et de les envoyer à Elasticsearch pour analyse et stockage. Grâce à Logstash, nous avons une vision claire et centralisée de l'activité et des performances de notre système.
+
+Metricbeat
+Metricbeat : Pour une surveillance plus approfondie de nos services, nous avons intégré Metricbeat dans notre stack ELK. Metricbeat nous permet de collecter et d'envoyer des métriques système et de service vers Elasticsearch. Ces métriques incluent l'utilisation du processeur, la mémoire, le réseau et d'autres indicateurs importants, nous aidant à surveiller la santé et les performances de nos conteneurs Docker en temps réel.
+
+Curator
+Curator : Afin de gérer efficacement les indices Elasticsearch, nous avons mis en place Elastic Curator. Curator nous aide à maintenir notre cluster Elasticsearch en bonne santé en automatisant la maintenance des indices, comme la suppression des indices anciens ou leur fermeture, assurant ainsi une gestion optimisée des ressources.
+
+Intégration Continue et Automatisation des Tests
+Nous avons automatisé des tests dans notre fichier docker-compose.yml pour vérifier la santé de nos conteneurs, le bon fonctionnement de notre application (frontend et backend), ainsi que la base de données. Cette automatisation fait partie de notre stratégie d'intégration continue, garantissant la fiabilité et la stabilité de notre application à chaque mise à jour ou modification.
+
 ## Accès en ligne
 
 Le projet est également déployé en ligne et accessible publiquement via les liens suivants :
 
-Interface utilisateur (Frontend) : [Task Manager Web](http://taskmanagerweb.northeurope.cloudapp.azure.com:80/)
+Interface utilisateur (Frontend) : [Task Manager Web](http://localhost:80/)
 
-Documentation API Swagger : [Swagger Documentation](http://taskmanagerweb.northeurope.cloudapp.azure.com:5000/api-docs/)
+Documentation API Swagger : [Swagger Documentation](http://localhost:5000/api-docs/)
 
-Tableau de bord de monitoring Prometheus : [Prometheus Monitoring](http://taskmanagerweb.northeurope.cloudapp.azure.com:9090/)
+Tableau de bord de monitoring Prometheus : [Prometheus Monitoring](http://localhost:9090/)
 
-Tableau de bord de monitoring Grafana : [Grafana Monitoring](http://taskmanagerweb.northeurope.cloudapp.azure.com:3000/)
+Tableau de bord de monitoring Grafana : [Grafana Monitoring](http://localhost:3000/)
+
+Tableau de bord Kibana : [Kibana](http://localhost:5601/)
 
 ## Architecture
 
-![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/e4405e8d-ef07-44fb-adaa-8197775b9856)
+![cc drawio](https://github.com/EneruJ/task-manager-microservices/assets/62664268/3e9c0d91-fab9-4927-a84c-cca43bc1995b)
 
-## Execution des images Docker
+## Execution 
 
 ![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/b7edd1ba-e460-45bb-a816-d743664933ad)
+
+![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/05c2a90c-29da-466d-8039-b20fed275fae)
+
+## Execution de l'authentification (route protégée)
+
+![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/647c6139-fd38-4ee3-a104-ec3bcf7bf6d6)
 
 ## Build et Exécution du Projet
 
