@@ -93,11 +93,13 @@ Tableau de bord Kibana : [Kibana](http://localhost:5601/)
 
 ![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/b7edd1ba-e460-45bb-a816-d743664933ad)
 
-![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/05c2a90c-29da-466d-8039-b20fed275fae)
-
 ## Execution de l'authentification (route protégée)
 
 ![image](https://github.com/EneruJ/task-manager-microservices/assets/62664268/647c6139-fd38-4ee3-a104-ec3bcf7bf6d6)
+
+## Execution de l'autocomplétion
+
+![Capture vidéo du 2024-01-12 09-14-20](https://github.com/EneruJ/task-manager-microservices/assets/62664268/f3ec65e3-88a7-481e-8774-26647082619d)
 
 ## Dashboard Kibana
 
